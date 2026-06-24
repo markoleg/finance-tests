@@ -26,6 +26,8 @@
   /* toolbar: search + nav */
   .toolbar{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 8px;margin-bottom:6px;
            border-bottom:1px solid var(--line)}
+  /* зсув для якірних переходів, щоб заголовок секції не ховався під липким тулбаром */
+  section[data-sec]{scroll-margin-top:var(--anchor-offset,120px)}
   .search{width:100%;padding:12px 16px;font-size:1rem;border:1px solid var(--line);border-radius:11px;
           background:#fff;color:var(--ink);outline:none}
   .search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
@@ -548,6 +550,14 @@ search.addEventListener('input', ()=>{
   });
   empty.style.display = anyVisible ? "none" : "block";
 });
+
+// зсув для якірних переходів = реальна висота липкого тулбару (+ невеликий відступ)
+const toolbar = document.querySelector('.toolbar');
+function setAnchorOffset(){
+  if(toolbar) document.documentElement.style.setProperty('--anchor-offset',(toolbar.offsetHeight+8)+'px');
+}
+setAnchorOffset();
+window.addEventListener('resize', setAnchorOffset);
 </script>
 </body>
 </html>
