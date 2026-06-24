@@ -28,16 +28,12 @@ PAGE = r"""<!DOCTYPE html>
 <style>:root{--brand:__BRAND__;--brand-d:__BRANDD__;--hover:__HOVER__}</style>
 </head>
 <body>
-<header>
-  <h1>__H1__</h1>
-  <p>__SUB__</p>
-  <a class="back" href="index.html">&larr; Усі тести</a>
+<div class="pline"><span class="pfill" id="pfill"></span></div>
+<header class="topbar" id="topbar">
+  <span class="ttl">__H1__</span>
+  <span class="pcount"><b id="answered">0</b>/<span id="total1"></span><span id="total2" hidden></span></span>
+  <nav class="menu"><a href="index.html">Головна</a><a href="formulas.html">Формули</a></nav>
 </header>
-
-<div class="bar">
-  <div class="info">Опрацьовано: <b id="answered">0</b> / <span id="total1"></span></div>
-  <div class="info">Максимум: <b id="total2"></b> балів</div>
-</div>
 
 <div class="wrap" id="quiz"></div>
 

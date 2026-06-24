@@ -44,6 +44,8 @@ function countAnswered(){
     else { const el=document.querySelector('input[name="q'+q.n+'"]'); if(el && el.value.trim()) n++; }
   });
   document.getElementById('answered').textContent=n;
+  const pf=document.getElementById('pfill');
+  if(pf) pf.style.width=(TOTAL?Math.round(n/TOTAL*100):0)+'%';
 }
 quiz.addEventListener('change',countAnswered);
 quiz.addEventListener('input',countAnswered);
@@ -118,19 +120,31 @@ document.getElementById('reset').addEventListener('click',()=>{
   window.scrollTo({top:0,behavior:'smooth'});
 });
 
-// Нижня панель дій: показується при скролі ВНИЗ, ховається при скролі ВГОРУ;
-// біля низу сторінки завжди видима. Поважає prefers-reduced-motion.
+// Авто-приховування хедера й нижньої панелі за напрямком скролу:
+//   хедер  — ховається ВНИЗ, з'являється ВГОРУ (і завжди видимий біля верху);
+//   панель — навпаки: ВНИЗ показується, ВГОРУ ховається (і завжди видима біля низу).
+// Поважає prefers-reduced-motion. Тонка смужка прогресу не ховається ніколи.
 (function(){
   const abar=document.getElementById('abar');
-  if(!abar) return;
+  const topbar=document.getElementById('topbar');
+  function fitTop(){ if(topbar) document.body.style.paddingTop=topbar.offsetHeight+'px'; }
+  fitTop(); window.addEventListener('resize',fitTop);
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let lastY=window.scrollY||0, ticking=false;
   const TH=6;
   function update(){
     const y=window.scrollY||0, dy=y-lastY;
     const nearBottom=(window.innerHeight+y)>=(document.documentElement.scrollHeight-160);
-    if(nearBottom || dy>TH) abar.classList.remove('hide');
-    else if(dy<-TH) abar.classList.add('hide');
+    const nearTop=y<70;
+    if(dy>TH){                                   // скрол вниз
+      if(topbar && !nearTop) topbar.classList.add('hide');
+      if(abar) abar.classList.remove('hide');
+    } else if(dy<-TH){                           // скрол вгору
+      if(topbar) topbar.classList.remove('hide');
+      if(abar && !nearBottom) abar.classList.add('hide');
+    }
+    if(nearTop && topbar) topbar.classList.remove('hide');
+    if(nearBottom && abar) abar.classList.remove('hide');
     lastY=y; ticking=false;
   }
   window.addEventListener('scroll',function(){

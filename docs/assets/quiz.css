@@ -5,17 +5,24 @@
     --ok:#16a34a; --ok-bg:#ecfdf5; --bad:#dc2626; --bad-bg:#fef2f2;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;padding-bottom:84px}
-  header{background:linear-gradient(135deg,var(--brand-d),var(--brand));color:#fff;padding:28px 20px;text-align:center}
-  header h1{margin:0 0 4px;font-size:1.5rem}
-  header p{margin:0;opacity:.92;font-size:.95rem}
-  header .back{display:inline-block;margin-top:10px;color:#fff;opacity:.85;font-size:.85rem;text-decoration:none;border:1px solid rgba(255,255,255,.5);padding:4px 12px;border-radius:8px}
-  header .back:hover{opacity:1;background:rgba(255,255,255,.12)}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;padding-top:46px;padding-bottom:84px}
+  /* тонка смужка прогресу — завжди видима */
+  .pline{position:fixed;top:0;left:0;right:0;height:3px;z-index:42;background:var(--line)}
+  .pline .pfill{display:block;height:100%;width:0;background:var(--brand);transition:width .3s ease}
+  /* слім-хедер з меню — ховається при скролі вниз, з'являється при скролі вгору */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:41;display:flex;align-items:center;gap:10px 14px;
+          padding:9px 18px;background:linear-gradient(135deg,var(--brand-d),var(--brand));color:#fff;
+          transition:transform .25s ease}
+  .topbar.hide{transform:translateY(-100%)}
+  .topbar .ttl{font-size:.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:50px}
+  .topbar .pcount{font-size:.82rem;opacity:.92;flex-shrink:0;white-space:nowrap}
+  .topbar .pcount b{font-weight:800}
+  .topbar .menu{display:flex;gap:6px;flex-shrink:0}
+  .topbar .menu a{color:#fff;text-decoration:none;font-size:.82rem;font-weight:600;
+                  padding:5px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.45)}
+  .topbar .menu a:hover{background:rgba(255,255,255,.15)}
+  @media (prefers-reduced-motion: reduce){ .topbar{transition:none} }
   .wrap{max-width:860px;margin:0 auto;padding:20px}
-  .bar{position:sticky;top:0;z-index:20;background:rgba(244,246,251,.95);backdrop-filter:blur(6px);
-       padding:12px 20px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-  .bar .info{font-size:.9rem;color:var(--muted)}
-  .bar .info b{color:var(--ink)}
   .q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0;box-shadow:0 1px 3px rgba(20,30,60,.04)}
   .q .num{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;padding:0 8px;
           background:var(--brand);color:#fff;border-radius:8px;font-weight:700;font-size:.85rem;margin-right:8px}

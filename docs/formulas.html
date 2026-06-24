@@ -33,6 +33,8 @@
   .nav a{text-decoration:none;font-size:.82rem;font-weight:600;color:#334155;background:#fff;
          border:1px solid var(--line);padding:5px 11px;border-radius:20px}
   .nav a:hover{border-color:var(--accent);color:var(--accent)}
+  .nav a.nav-home{color:#fff;background:var(--accent);border-color:var(--accent)}
+  .nav a.nav-home:hover{filter:brightness(.92)}
 
   .note-top{background:#eef2ff;border:1px solid #dbe2ff;border-radius:12px;padding:12px 16px;
             font-size:.9rem;color:#3b4a6b;margin:14px 0}
@@ -502,7 +504,7 @@ content.innerHTML = html;
 
 // nav chips
 const navItems = [["abbr","Позначення"],["r1","1·Звітність"],["r2","2·Аналіз"],["r3tax","3·Податки"],["r4bud","4·Бюджет"],["r5acc","5·Амортизація"],["r6mgmt","6·Управл. облік"],["r7fin","7·Фінанси"],["r8bank","8·Гроші/банки"],["tpl","Шаблони"],["check","Чек-лист"],["src","Джерела"]];
-nav.innerHTML = navItems.map(n=>`<a href="#${n[0]}">${n[1]}</a>`).join("");
+nav.innerHTML = `<a class="nav-home" href="index.html">← Головна</a>` + navItems.map(n=>`<a href="#${n[0]}">${n[1]}</a>`).join("");
 
 // ---- live search ----
 const search = document.getElementById('search');
