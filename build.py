@@ -30,7 +30,7 @@ PAGE = r"""<!DOCTYPE html>
 <body>
 <div class="pline"><span class="pfill" id="pfill"></span></div>
 <header class="topbar" id="topbar">
-  <span class="ttl">__H1__</span>
+  <span class="ttl"><span class="t-full">__H1__</span><span class="t-short">__SHORT__</span></span>
   <span class="pcount"><b id="answered">0</b>/<span id="total1"></span><span id="total2" hidden></span></span>
   <nav class="menu"><a href="index.html">Головна</a><a href="formulas.html">Формули</a></nav>
 </header>
@@ -47,7 +47,7 @@ PAGE = r"""<!DOCTYPE html>
       <span class="grade" id="gradeBadge"></span>
     </div>
     <div class="abar-btns">
-      <button class="btn primary" id="check">Перевірити результат</button>
+      <button class="btn primary" id="check"><span class="t-full">Перевірити результат</span><span class="t-short">Перевірити</span></button>
       <button class="btn ghost" id="reset">Пройти заново</button>
     </div>
   </div>
@@ -65,6 +65,7 @@ def build(cfg):
             .replace("__TITLE__", cfg["title"])
             .replace("__DESC__", cfg["sub"])
             .replace("__H1__", cfg["h1"])
+            .replace("__SHORT__", cfg["h1"].split(" · ")[-1])
             .replace("__SUB__", cfg["sub"])
             .replace("__FOOT__", cfg["foot"])
             .replace("__BRANDD__", cfg["brand_d"])

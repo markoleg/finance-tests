@@ -104,6 +104,7 @@ function showResult(score){
   b.textContent=label; b.style.background=bg; b.style.color=fg;
   res.classList.add('show');
   document.getElementById('abar').classList.remove('hide');   // показати панель з результатом
+  if(window.__fitBars) window.__fitBars();                    // переобчислити відступ під вищу панель
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -117,6 +118,7 @@ document.getElementById('reset').addEventListener('click',()=>{
   document.querySelectorAll('.explain').forEach(e=>{e.textContent='';e.style.display='none';});
   document.getElementById('result').classList.remove('show');
   checked=false; countAnswered();
+  if(window.__fitBars) window.__fitBars();
   window.scrollTo({top:0,behavior:'smooth'});
 });
 
@@ -127,8 +129,19 @@ document.getElementById('reset').addEventListener('click',()=>{
 (function(){
   const abar=document.getElementById('abar');
   const topbar=document.getElementById('topbar');
-  function fitTop(){ if(topbar) document.body.style.paddingTop=topbar.offsetHeight+'px'; }
-  fitTop(); window.addEventListener('resize',fitTop);
+  // відступи body = реальна висота панелей (щоб не перекривали контент навіть при переносі кнопок)
+  function fitBars(){
+    if(topbar) document.body.style.paddingTop=topbar.offsetHeight+'px';
+    if(abar) document.body.style.paddingBottom=(abar.offsetHeight+8)+'px';
+  }
+  window.__fitBars=fitBars;   // щоб викликати після показу/приховування результату
+  fitBars();
+  if(window.ResizeObserver){
+    const ro=new ResizeObserver(fitBars);
+    if(topbar) ro.observe(topbar);
+    if(abar) ro.observe(abar);
+  }
+  window.addEventListener('resize',fitBars);
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let lastY=window.scrollY||0, ticking=false;
   const TH=6;
