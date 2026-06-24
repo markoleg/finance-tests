@@ -52,7 +52,7 @@ PAGE = r"""<!DOCTYPE html>
   <div><span class="grade" id="gradeBadge"></span></div>
 </div>
 
-<footer>__FOOT__</footer>
+<footer>__FOOT__<div class="disclaimer">Неофіційний ресурс для самопідготовки. Не пов’язаний з МОН України чи УЦОЯО. Завдання авторські й не є офіційними завданнями ЄФВВ.</div></footer>
 
 <script>const QUESTIONS = __DATA__;</script>
 <script src="assets/quiz.js"></script>
@@ -191,6 +191,7 @@ LANDING = """<!DOCTYPE html>
   .card .go{margin-top:12px;display:inline-block;color:#fff;background:var(--c);
             padding:8px 18px;border-radius:9px;font-weight:700;font-size:.9rem}
   footer{text-align:center;color:#6b7280;font-size:.8rem;padding:20px}
+  .disclaimer{max-width:660px;margin:10px auto 0;font-size:.72rem;line-height:1.45;color:#6b7280;opacity:.85}
 </style>
 </head>
 <body>
@@ -200,7 +201,7 @@ LANDING = """<!DOCTYPE html>
 </header>
 <div class="wrap">
 """ + FORMULY_CARD + card_html + """</div>
-<footer>1 бал за кожну правильну відповідь · результат і правильні відповіді показуються після перевірки · для самопідготовки</footer>
+<footer>1 бал за кожну правильну відповідь · результат і правильні відповіді показуються після перевірки · для самопідготовки<div class="disclaimer">Неофіційний ресурс для самопідготовки. Не пов’язаний з МОН України чи УЦОЯО. Завдання авторські й не є офіційними завданнями ЄФВВ.</div></footer>
 </body>
 </html>"""
 

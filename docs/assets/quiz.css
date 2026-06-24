@@ -50,3 +50,4 @@
   .result .pct{color:var(--muted);font-size:.95rem}
   .grade{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:.9rem}
   footer{text-align:center;color:var(--muted);font-size:.8rem;padding:22px}
+  .disclaimer{max-width:660px;margin:10px auto 0;font-size:.72rem;line-height:1.45;color:var(--muted);opacity:.85}
