@@ -41,18 +41,21 @@ PAGE = r"""<!DOCTYPE html>
 
 <div class="wrap" id="quiz"></div>
 
-<div class="actions">
-  <button class="btn primary" id="check">Перевірити результат</button>
-  <button class="btn ghost" id="reset">Пройти заново</button>
-</div>
-
-<div class="result" id="result">
-  <div class="score" id="scoreLine"></div>
-  <div class="pct" id="pctLine"></div>
-  <div><span class="grade" id="gradeBadge"></span></div>
-</div>
-
 <footer>__FOOT__<div class="disclaimer">Неофіційний ресурс для самопідготовки. Не пов’язаний з МОН України чи УЦОЯО. Завдання авторські й не є офіційними завданнями ЄФВВ.</div></footer>
+
+<div class="abar" id="abar">
+  <div class="abar-inner">
+    <div class="result" id="result">
+      <span class="score" id="scoreLine"></span>
+      <span class="pct" id="pctLine"></span>
+      <span class="grade" id="gradeBadge"></span>
+    </div>
+    <div class="abar-btns">
+      <button class="btn primary" id="check">Перевірити результат</button>
+      <button class="btn ghost" id="reset">Пройти заново</button>
+    </div>
+  </div>
+</div>
 
 <script>const QUESTIONS = __DATA__;</script>
 <script src="assets/quiz.js"></script>

@@ -5,7 +5,7 @@
     --ok:#16a34a; --ok-bg:#ecfdf5; --bad:#dc2626; --bad-bg:#fef2f2;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  body{margin:0;font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;padding-bottom:84px}
   header{background:linear-gradient(135deg,var(--brand-d),var(--brand));color:#fff;padding:28px 20px;text-align:center}
   header h1{margin:0 0 4px;font-size:1.5rem}
   header p{margin:0;opacity:.92;font-size:.95rem}
@@ -42,12 +42,19 @@
   .btn.primary{background:var(--brand);color:#fff}
   .btn.primary:hover{background:var(--brand-d)}
   .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
-  .actions{display:flex;gap:12px;justify-content:center;margin:26px 0;flex-wrap:wrap}
-  .result{position:sticky;bottom:0;z-index:20;display:none;background:#fff;border-top:1px solid var(--line);
-          padding:16px 20px;text-align:center;box-shadow:0 -4px 16px rgba(20,30,60,.08)}
-  .result.show{display:block}
-  .result .score{font-size:1.6rem;font-weight:800}
-  .result .pct{color:var(--muted);font-size:.95rem}
-  .grade{display:inline-block;margin-top:6px;padding:4px 14px;border-radius:999px;font-weight:700;font-size:.9rem}
+  /* фіксована нижня панель дій (показується при скролі вниз, ховається при скролі вгору) */
+  .abar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:1px solid var(--line);
+        box-shadow:0 -4px 16px rgba(20,30,60,.08);transition:transform .25s ease}
+  .abar.hide{transform:translateY(115%)}
+  .abar-inner{max-width:860px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;
+              gap:10px 16px;justify-content:space-between;flex-wrap:wrap}
+  .abar .btn{padding:11px 22px;font-size:.95rem}
+  .abar-btns{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto}
+  .abar .result{display:none;align-items:center;gap:6px 12px;flex-wrap:wrap}
+  .abar .result.show{display:flex}
+  .abar .result .score{font-size:1.15rem;font-weight:800}
+  .abar .result .pct{color:var(--muted);font-size:.9rem}
+  .grade{display:inline-block;padding:4px 14px;border-radius:999px;font-weight:700;font-size:.85rem}
+  @media (prefers-reduced-motion: reduce){ .abar{transition:none} }
   footer{text-align:center;color:var(--muted);font-size:.8rem;padding:22px}
   .disclaimer{max-width:660px;margin:10px auto 0;font-size:.72rem;line-height:1.45;color:var(--muted);opacity:.85}

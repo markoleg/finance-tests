@@ -91,8 +91,8 @@ document.getElementById('check').addEventListener('click',()=>{
 function showResult(score){
   const pct=Math.round(score/TOTAL*100);
   const res=document.getElementById('result');
-  document.getElementById('scoreLine').textContent='Ваш результат: '+score+' / '+TOTAL+' балів';
-  document.getElementById('pctLine').textContent=pct+'% правильних відповідей';
+  document.getElementById('scoreLine').textContent='Результат: '+score+' / '+TOTAL;
+  document.getElementById('pctLine').textContent='· '+pct+'%';
   const b=document.getElementById('gradeBadge');
   let label,bg,fg;
   if(pct>=90){label='Відмінно';bg='#dcfce7';fg='#15803d';}
@@ -101,6 +101,7 @@ function showResult(score){
   else{label='Потрібно повторити';bg='#fee2e2';fg='#b91c1c';}
   b.textContent=label; b.style.background=bg; b.style.color=fg;
   res.classList.add('show');
+  document.getElementById('abar').classList.remove('hide');   // показати панель з результатом
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -116,3 +117,23 @@ document.getElementById('reset').addEventListener('click',()=>{
   checked=false; countAnswered();
   window.scrollTo({top:0,behavior:'smooth'});
 });
+
+// Нижня панель дій: показується при скролі ВНИЗ, ховається при скролі ВГОРУ;
+// біля низу сторінки завжди видима. Поважає prefers-reduced-motion.
+(function(){
+  const abar=document.getElementById('abar');
+  if(!abar) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let lastY=window.scrollY||0, ticking=false;
+  const TH=6;
+  function update(){
+    const y=window.scrollY||0, dy=y-lastY;
+    const nearBottom=(window.innerHeight+y)>=(document.documentElement.scrollHeight-160);
+    if(nearBottom || dy>TH) abar.classList.remove('hide');
+    else if(dy<-TH) abar.classList.add('hide');
+    lastY=y; ticking=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){ requestAnimationFrame(update); ticking=true; }
+  },{passive:true});
+})();
