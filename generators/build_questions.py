@@ -54,11 +54,19 @@ def _norm(s):
     return s
 
 
+# додаткові унікальні питання, якими добиваємо банк назад до потрібної кількості
+# (після видалення дублікатів). Ключ — банк, значення — файл з питаннями.
+EXTRA = {
+    "questions2025_v3.json": "extra_v3.json",
+}
+
+
 def dedupe():
     """Прибирає питання, що повторюються МІЖ варіантами (лишає перше входження
-    за порядком VARIANT_BANKS), і перенумеровує кожен банк 1..N."""
+    за порядком VARIANT_BANKS), за потреби добиває банк унікальними питаннями
+    з EXTRA, і перенумеровує кожен банк 1..N."""
     seen = set()
-    total_removed = 0
+    total_removed = total_added = 0
     for fn in VARIANT_BANKS:
         path = os.path.join(ROOT, fn)
         qs = json.load(open(path, encoding="utf-8"))
@@ -70,14 +78,32 @@ def dedupe():
             seen.add(k)
             out.append(q)
         removed = len(qs) - len(out)
+
+        added = 0
+        if fn in EXTRA:
+            extra = json.load(open(os.path.join(HERE, EXTRA[fn]), encoding="utf-8"))
+            for q in extra:
+                k = _norm(q["q"])
+                if k in seen:          # не додаємо, якщо таке питання вже десь є
+                    continue
+                seen.add(k)
+                out.append(q)
+                added += 1
+
         total_removed += removed
+        total_added += added
         for i, q in enumerate(out, 1):
             q["n"] = i
         json.dump(out, open(path, "w", encoding="utf-8"),
                   ensure_ascii=False, indent=1)
-        flag = "  (-%d дубл.)" % removed if removed else ""
+        parts = []
+        if removed:
+            parts.append("-%d дубл." % removed)
+        if added:
+            parts.append("+%d дод." % added)
+        flag = ("  (" + ", ".join(parts) + ")") if parts else ""
         print("  ", fn.ljust(24), "%3d питань%s" % (len(out), flag))
-    print("   разом прибрано дублікатів між варіантами:", total_removed)
+    print("   прибрано дублікатів:", total_removed, "| додано унікальних:", total_added)
 
 
 def main():
