@@ -103,7 +103,6 @@ function showResult(score){
   else{label='Потрібно повторити';bg='#fee2e2';fg='#b91c1c';}
   b.textContent=label; b.style.background=bg; b.style.color=fg;
   res.classList.add('show');
-  document.getElementById('abar').classList.remove('hide');   // показати панель з результатом
   if(window.__fitBars) window.__fitBars();                    // переобчислити відступ під вищу панель
   window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -122,19 +121,16 @@ document.getElementById('reset').addEventListener('click',()=>{
   window.scrollTo({top:0,behavior:'smooth'});
 });
 
-// Авто-приховування хедера й нижньої панелі за напрямком скролу:
-//   хедер  — ховається ВНИЗ, з'являється ВГОРУ (і завжди видимий біля верху);
-//   панель — навпаки: ВНИЗ показується, ВГОРУ ховається (і завжди видима біля низу).
-// Поважає prefers-reduced-motion. Тонка смужка прогресу не ховається ніколи.
+// Хедер і нижня панель — завжди видимі (фіксовані). Скрипт лише тримає відступи
+// body рівними реальній висоті панелей, щоб вони не перекривали контент.
 (function(){
   const abar=document.getElementById('abar');
   const topbar=document.getElementById('topbar');
-  // відступи body = реальна висота панелей (щоб не перекривали контент навіть при переносі кнопок)
   function fitBars(){
     if(topbar) document.body.style.paddingTop=topbar.offsetHeight+'px';
     if(abar) document.body.style.paddingBottom=(abar.offsetHeight+8)+'px';
   }
-  window.__fitBars=fitBars;   // щоб викликати після показу/приховування результату
+  window.__fitBars=fitBars;   // викликаємо ще й після показу результату (панель стає вищою)
   fitBars();
   if(window.ResizeObserver){
     const ro=new ResizeObserver(fitBars);
@@ -142,25 +138,4 @@ document.getElementById('reset').addEventListener('click',()=>{
     if(abar) ro.observe(abar);
   }
   window.addEventListener('resize',fitBars);
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let lastY=window.scrollY||0, ticking=false;
-  const TH=6;
-  function update(){
-    const y=window.scrollY||0, dy=y-lastY;
-    const nearBottom=(window.innerHeight+y)>=(document.documentElement.scrollHeight-160);
-    const nearTop=y<70;
-    if(dy>TH){                                   // скрол вниз
-      if(topbar && !nearTop) topbar.classList.add('hide');
-      if(abar) abar.classList.remove('hide');
-    } else if(dy<-TH){                           // скрол вгору
-      if(topbar) topbar.classList.remove('hide');
-      if(abar && !nearBottom) abar.classList.add('hide');
-    }
-    if(nearTop && topbar) topbar.classList.remove('hide');
-    if(nearBottom && abar) abar.classList.remove('hide');
-    lastY=y; ticking=false;
-  }
-  window.addEventListener('scroll',function(){
-    if(!ticking){ requestAnimationFrame(update); ticking=true; }
-  },{passive:true});
 })();

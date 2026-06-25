@@ -83,25 +83,20 @@
   mark{background:#fde68a;color:inherit;border-radius:3px;padding:0 1px}
 
   /* ── мобільна адаптація ── */
+  /* ── мобільна адаптація: ~−20% від десктопу ── */
   @media (max-width:560px){
+    html{font-size:80%}                     /* всі rem-розміри (шрифти) стають 80% */
     header{padding:24px 16px}
-    header h1{font-size:1.3rem}
-    header p{font-size:.85rem}
     .wrap{padding:14px 12px 48px}
     .toolbar{padding:12px 0 6px}
-    .search{font-size:.95rem;padding:10px 13px}
-    .nav a{font-size:.76rem;padding:4px 9px}
-    .note-top{font-size:.84rem;padding:10px 13px}
-    .sec-h h2{font-size:1.08rem}
+    .search{font-size:16px;padding:10px 13px}   /* 16px — щоб Safari не зумив при фокусі */
+    .nav a{padding:4px 9px}
+    .note-top{padding:10px 13px}
     .sec-sub{margin-left:12px}
-    .subhead{font-size:.96rem}
     .f{padding:12px 13px}
-    .f .name{font-size:.94rem}
-    .f .formula{font-size:.88rem;padding:8px 10px}
-    .f .why{font-size:.82rem}
-    .f .uses{font-size:.74rem}
+    .f .formula{padding:8px 10px}
     .abbr{grid-template-columns:1fr}
-    ul.check li{font-size:.86rem;padding:9px 12px 9px 36px}
+    ul.check li{padding:9px 12px 9px 36px}
   }
 </style>
 </head>

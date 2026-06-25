@@ -47,7 +47,7 @@ PAGE = r"""<!DOCTYPE html>
       <span class="grade" id="gradeBadge"></span>
     </div>
     <div class="abar-btns">
-      <button class="btn primary" id="check"><span class="t-full">Перевірити результат</span><span class="t-short">Перевірити</span></button>
+      <button class="btn primary" id="check"><span class="t-full">Перевірити результат</span><span class="t-short">Результат</span></button>
       <button class="btn ghost" id="reset">Пройти заново</button>
     </div>
   </div>

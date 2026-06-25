@@ -68,28 +68,23 @@
   footer{text-align:center;color:var(--muted);font-size:.8rem;padding:22px}
   .disclaimer{max-width:660px;margin:10px auto 0;font-size:.72rem;line-height:1.45;color:var(--muted);opacity:.85}
 
-  /* ── мобільна адаптація ── */
+  /* ── мобільна адаптація: ~−20% від десктопу ── */
   @media (max-width:560px){
+    html{font-size:80%}                     /* всі rem-розміри (шрифти) стають 80% */
     .wrap{padding:14px 12px}
-    .topbar{padding:8px 12px;gap:8px 10px}
-    .topbar .ttl{font-size:.82rem}
+    .topbar{padding:8px 14px;gap:7px 10px}
     .topbar .ttl .t-full{display:none}
     .topbar .ttl .t-short{display:inline}
-    .topbar .pcount{font-size:.78rem}
-    .topbar .menu a{font-size:.78rem;padding:4px 9px}
-    .q{padding:14px 14px;border-radius:12px;margin:11px 0}
-    .q h3{font-size:.96rem;margin-bottom:11px}
-    .q .num{min-width:26px;height:26px;font-size:.8rem;margin-right:6px}
-    .opt{padding:9px 11px;gap:8px}
-    .num-input input{width:100%}
-    .hint,.explain,.verdict{font-size:.84rem}
-    .btn-check{padding:6px 14px;font-size:.84rem}
-    .abar-inner{padding:8px 12px;gap:8px 10px}
-    .abar .btn{flex:1;padding:11px 10px;font-size:.9rem;white-space:nowrap}
+    .topbar .menu a{padding:5px 9px}
+    .q{padding:14px 15px;margin:11px 0}
+    .opt{padding:8px 10px}
+    .num-input input{width:100%;font-size:16px}   /* 16px — щоб Safari не зумив при фокусі */
+    .btn-check{padding:7px 14px}
+    .abar-inner{padding:8px 14px;gap:7px 10px}
+    .abar .btn{flex:1;padding:11px 12px;white-space:nowrap}
     .abar .btn .t-full{display:none}
     .abar .btn .t-short{display:inline}
     .abar-btns{width:100%;margin-left:0;gap:8px}
-    .abar .result .score{font-size:1.05rem}
     footer{padding:18px 14px}
   }
   /* на дуже вузьких — ховаємо числовий лічильник (прогрес видно смужкою) */
